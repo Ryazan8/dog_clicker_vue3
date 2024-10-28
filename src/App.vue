@@ -1,13 +1,31 @@
 <template>
-  <main class="game">
+  <main class="game" v-if="loaded">
     <div class="page">
-      <RouterView />
+      <RouterView/>
     </div>
-    <TheMenu />
+    <TheMenu/>
   </main>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
 import TheMenu from './components/TheMenu.vue'
+import {onMounted, ref} from "vue";
+import {useAppStore} from "@/stores/app.js";
+import {useTelegram} from "@/services/telegram.js";
+
+const loaded = ref(false)
+const app = useAppStore()
+
+const {tg} = useTelegram()
+
+app.init().then(() => {
+  loaded.value = true
+})
+
+onMounted(() => {
+  tg.ready()
+
+  tg.expand()
+})
 </script>
