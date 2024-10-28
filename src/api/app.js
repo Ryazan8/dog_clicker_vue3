@@ -31,3 +31,14 @@ export async function getOrCreateUser() {
 export async function updateScore(score) {
     await supabase.from('users').update({ score }).eq('telegram', MY_ID)
 }
+
+export async function registerRef(userName, refId) {
+    const {data} = await supabase.from('users').select().eq('telegram', +refId)
+
+    const refUser = data[0]
+
+    await supabase.from('users').update({
+        friends: {...refUser.friends, [MY_ID]: userName},
+        score: refUser.score + 50,
+    }).eq('telegram', +refId)
+}
