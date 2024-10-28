@@ -3,13 +3,24 @@
     <h1>Друзья</h1>
 
     <div class="center">
-      <button class="referal" @click="copy">{{ referalText }}</button>
+      <button
+          class="referal"
+          @click="copy"
+      >
+        {{ referalText }}
+      </button>
     </div>
 
-    <h3 v-if="friends.length === 0">Друзей пока нет</h3>
+    <h3 v-if="friends.length === 0">
+      Друзей пока нет
+    </h3>
 
     <ul class="list">
-      <li class="list-item" v-for="friend in friends" :key="friend.id">
+      <li
+          class="list-item"
+          v-for="friend in friends"
+          :key="friend.id"
+      >
         {{ friend.name }}
         <span class="list-btn done">50</span>
       </li>
